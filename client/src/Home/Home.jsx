@@ -29,7 +29,7 @@ const Home = () => {
  
   },[DataUpddate]);
   return (
-    <Box flexDirection='row' display='flex'>
+    <Box flexDirection='row' display='flex' padding="15px">
         <Posts/>
         <Form/>
     </Box>

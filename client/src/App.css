@@ -1,9 +1,10 @@
 .App{
-    /* background-color: rgb(241, 241, 241); */
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     align-items: flex-start;
     justify-content: flex-start;
     padding: 10px;
     flex-direction: column;
+    background-color: rgb(226, 64, 43);
+    height: 100%;
 }
