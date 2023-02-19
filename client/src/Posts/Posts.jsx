@@ -12,7 +12,7 @@ const Posts = () => {
   return (
     <Box container justifyContent="center"   spacing='20' sx={{ width: '70%' }} >
 
-    {!Posts.length? <Box item  ><CircularProgress/></Box>:
+    {!Posts.length? <Box><CircularProgress/></Box>:
 
     <Grid container justifyContent="center" spacing='20'>
       { Posts?.map(({_id,creator,title,message,tags,createdAt,selectedFile,likCount})=>   

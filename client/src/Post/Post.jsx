@@ -9,6 +9,7 @@ import moment from 'moment';
 import { useDispatch,useSelector } from 'react-redux';
 import {updatePost,DeletedPost,updateData} from '../Redux/Slice'
 import * as api from '../api'
+import { Link } from 'react-router-dom';
 
 
 const Post = ({_id,creator,title,message,tags,selectedFile,createdAt,likCount}) => {
@@ -49,7 +50,7 @@ const LikePost =async()=>{
 
 
     return (
-        <Card sx={{ maxWidth: 345 }} key={_id}>
+        <Card sx={{ maxWidth: 345 }} key={_id} component={Link}  to={`/post/1` }>
             
           <CardMedia
             component="img"

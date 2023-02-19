@@ -6,7 +6,8 @@ export const Slice = createSlice({
     allPosts:[],
     postToupdate:null,
     postToDelete:null,
-    Dataupddate:false
+    Dataupddate:false,
+    User:null
   },
   reducers: {
     getAllPosts: (state,action) => {
@@ -25,11 +26,15 @@ export const Slice = createSlice({
     updateData: (state,action) => {
       
       state.Dataupddate=action.payload
+    },
+    setUserOnSlice:(state,action)=>{
+      state.User=action.payload
+
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { getAllPosts, updatePost,DeletedPost,updateData} = Slice.actions
+export const { getAllPosts, updatePost,DeletedPost,updateData,setUserOnSlice} = Slice.actions
 
 export default Slice.reducer

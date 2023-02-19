@@ -1,13 +1,32 @@
 import React, { useState } from 'react'
-import { Avatar, Box, Button } from '@mui/material'
+import { Avatar, Box, Button, Typography } from '@mui/material'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
-import { bgcolor, Stack } from '@mui/system'
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { Link, Navigate } from 'react-router-dom'
+import {Stack } from '@mui/system'
+import {deepPurple } from '@mui/material/colors';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { updateData,setUserOnSlice } from '../Redux/Slice'
 
 
 const Navbar = () => {
-  const [user, setuser] = useState(false);
+  const UserFromSlice= useSelector(state=>state.Store.User)
+  const dataStauts =useSelector(state=>state.Store.Dataupddate)
+  const dispatch =useDispatch()
+  const navigate = useNavigate();
+
+
+  const LogOut =()=>{
+    if (UserFromSlice) {
+      localStorage.removeItem('User');
+      dispatch(updateData(!dataStauts))
+      dispatch(setUserOnSlice(null))
+
+
+
+    }else{navigate('/Auth')
+  }}
+
   return (
     <Box
      width="100%"
@@ -20,16 +39,16 @@ const Navbar = () => {
 
         <Stack display='flex' flexDirection='row' gap='40px'>
         <Avatar sx={{ bgcolor: deepPurple[500] }}
-                alt="Remy Sharp"
-                src="https://voi.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fprismamedia_people.2F2017.2F06.2F30.2F6b471e7c-75bd-416c-9fd1-be3a4f7ce352.2Ejpeg/2048x1536/quality/80/denzel-washington.jpeg"
+                alt="Remy Sharp">
+                  OP
+                  </Avatar>
 
-        >OP</Avatar>
-       <Button variant="contained" onClick={()=>setuser(!user)}>
-        {user? 'Login': 'sing up'}
-
-
+       <Button variant="contained" onClick={LogOut}>
+        {!UserFromSlice? 'Login': 'Log Out'}
         </Button >
-          
+            <Typography color='white'>
+              {UserFromSlice?.name}
+            </Typography>
         </Stack>
 
 

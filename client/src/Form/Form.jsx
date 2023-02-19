@@ -11,8 +11,6 @@ const Form = () => {
     const dataStauts =useSelector(state=>state.Store.Dataupddate)
     const dispatch =useDispatch()
 
-
-
     useEffect(() => {
       if(PostToupdate){setpostData(PostToupdate)}
     }, [PostToupdate]);

@@ -3,18 +3,55 @@ import { Box, Stack } from '@mui/system'
 import React, { useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
+import LockIcon from '@mui/icons-material/Lock';
+import * as api from '../api'
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {setUserOnSlice} from '../Redux/Slice'
+
+const Auth = () => {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [user, setuser] = useState(false);
+    const [SignMode, setSignMode] = useState(false);
+    const [User, setUser] = useState({email:'',password:'',confirmPassword:'',firstName:'',LastName:''});
+    const dispatch =useDispatch()
 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
+
+  const SignUp =async()=>{
+         let UserData
+         if (SignMode) {
+          try {
+              UserData= await api.Signup(User)
+              if(UserData){
+                console.log(' user after regisetre',UserData.data.result)
+                const res=  await api.Signin(User)
+                 await localStorage.setItem('User', JSON.stringify(UserData.data.result))
+
+                if(res){ 
+                   navigate('/')
+              }}
+
+
+          } catch (error) {
+            console.log('The erroe',error)
+          }
+          
+         } else {
+          const res=  await api.Signin(User.email,User.password)
+          if(res){ 
+            navigate('/')
+       }
+        }
+      }
+
+
   return (
-<Box display='flex' alignItems='center' justifyContent='center' width='100%' height='800px'>
+<Box  display='flex' alignItems='center' justifyContent='center' width='100%' height='800px'>
     <Stack
      display='flex' 
      alignItems='center'
@@ -29,10 +66,9 @@ import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
 
 
  <LockIcon fontSize="large"  />
-<Typography variant='h5'> {user? 'Login': 'sing up'}</Typography>
+<Typography variant='h5'> {SignMode? 'Login': 'sing up'}</Typography>
 
-
-{user &&   
+{SignMode &&   
       <Stack 
             display='flex' 
             alignItems='center'
@@ -46,6 +82,7 @@ import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
           maxRows={1}
           sx={{ m: 1, width: '20ch' }}
           required
+          onChange={(e)=>setUser({...User,firstName:e.target.value})}
         />
 
          <TextField
@@ -55,6 +92,8 @@ import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
           maxRows={1}
           sx={{ m: 1, width: '20ch' }}
           required
+          onChange={(e)=>setUser({...User,lastName:e.target.value})}
+
         />
         </Stack>}
 
@@ -67,6 +106,8 @@ import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
           maxRows={1}
           sx={{ m: 1, width: '40ch' }}
           required
+          onChange={(e)=>setUser({...User,email:e.target.value})}
+
         />
 
 
@@ -89,50 +130,38 @@ import LockIcon from '@mui/icons-material/Lock';const Auth = () => {
               </InputAdornment>
             }
             label="Password"
+            onChange={(e)=>setUser({...User,Password:e.target.value})}
+
           />
         </FormControl>
 
 
        
 
-       {user && <TextField
-          id="outlined-multiline-flexible"
-          label="Confirm pasword"
-          multiline
-          maxRows={1}
+       {SignMode &&   <TextField
           sx={{ m: 1, width: '40ch' }}
           required
+          onChange={(e)=>setUser({...User,confirmpassword:e.target.value})}         
+          id="outlined-password-input"
+          label="confirme Password"
+          type="password"
+          autoComplete="current-password"
         />}
+
           <Button 
-            onClick={()=>setuser(!user)}
+            onClick={SignUp}
             sx={{ m: 1, width: '30ch' }}
             variant="contained" size="large" > 
-            {user? 'Login': 'sing up'}
+            {!SignMode? 'Login': 'sing up'}
          </Button>
 
          <Button size="small"
-
-            onClick={()=>setuser(!user)}
-            sx={{ m: 1, width: '40ch',fontWeight:'400' }}
-            // variant="contained" 
-             > 
-            {user? 'Already have an account? Sing In': "Don't have an account? Sing Up "}
+            onClick={()=>setSignMode(!SignMode)}
+            sx={{ m: 1, width: '40ch',fontWeight:'400' }}> 
+            {SignMode? 'Already have an account? Sing In': "Don't have an account? Sing Up "}
          </Button>
-             
-
-
-
-
-
-
-
-        
     </Stack>
-
-
-
-
-</Box>  )
+</Box>)
 }
 
 export default Auth
