@@ -12,9 +12,8 @@ export const LikePost=(_id,newpost)=> axios.patch(`${url}/${_id}`,newpost)
 
 export const Signin=(userData)=> axios.post(`${url}/users/Signin`,userData)
 export const Signup=(userData)=> axios.post(`${url}/users/Signup`,userData)
+export const Profile=(Token)=> axios.post(`${url}/users/Profile`,Token)
 
 
 
 
-// router.post('/signin',Signin)
-// router.post('/signup',Signup)

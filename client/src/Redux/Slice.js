@@ -7,7 +7,7 @@ export const Slice = createSlice({
     postToupdate:null,
     postToDelete:null,
     Dataupddate:false,
-    User:null
+    User:{}
   },
   reducers: {
     getAllPosts: (state,action) => {
