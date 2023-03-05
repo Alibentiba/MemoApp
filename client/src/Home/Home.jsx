@@ -1,31 +1,19 @@
 import React from 'react'
-import {Route, Routes } from 'react-router-dom'
-import Profile from './Profile'
-import Bookings from './Bookings'
-import Places from '../Places/Places'
-import NaveHome from './NaveHome'
-import AddPlace from '../Places/AddPlace'
+import { useSelector } from 'react-redux';
+import Form from '../Form/Form';
+
+
 const Home = () => {
+  const posts =useSelector(state=>state.posts)
+  console.log('The posts from Redux',posts)
   return (
-    <div className='h-screen '>
-    <NaveHome/>
-   
-       <Routes>
-        <Route path='/Home/Profile'  element={<Profile/>}/>
-        <Route path='/Home/Bookings' exact element={<Bookings/>}/>
-        <Route path='/Home/Accommoditions' element={<Places/>}/>
-        <Route path='/Home/Accommoditions/New' element={<AddPlace/>}/>
-
-        </Routes>
-   
- 
-
-
-</div>
-  
-
-)
-   
+    <div className='w-full  h-full flex flex-row p-4 gap-3'>
+      <div className='w-3/4 bg-green-400'>
+        <p>posts</p>
+      </div>
+      <Form/>
+    </div>
+  )
 }
 
 export default Home
