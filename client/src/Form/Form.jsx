@@ -1,20 +1,35 @@
 import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FileBase from 'react-file-base64'
-import { useDispatch } from 'react-redux';
-import { creatPost } from '../actions/posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { creatPost ,UpdatePost} from '../actions/posts';
 
 const Form = () => {
     const [postData, setpostData] = useState({creator:'',title:'',message:'',tags:'',selectedFile:null});
    const dispatch =useDispatch()
+   const postsup =useSelector(state=>state.postToupdate)
 
+useEffect(() => {
+    if(postsup){
+        setpostData(postsup)
+    }
+}, [postsup]);
 
 const handlSubmit=()=>{
-dispatch(creatPost(postData))
+
+  if (postsup) {
+    dispatch(UpdatePost(postsup._id,postData))
+  } else {
+    dispatch(creatPost(postData))
+
+  }  
+Clear()
+
 }
 const Clear=()=>{
-    setpostData({creator:''
-    ,title:'',
+    setpostData({
+    creator:'',
+    title:'',
     message:'',
     tags:'',
     selectedFile:null})
@@ -70,7 +85,7 @@ const Clear=()=>{
                     </div>
                     
                 <Button onClick={handlSubmit} variant="contained" size="large" fullWidth>
-                            Submit
+                            {!postsup? 'Submit' :'Update'}
                 </Button> 
 
                 <Button onClick={Clear}  variant="outlined" color="error" size="large" fullWidth>

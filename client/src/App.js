@@ -10,6 +10,7 @@ import { getPosts } from './actions/posts';
 
 
 const App = () => {
+  const [currentID, setcurrentID] = useState(null);
     const dispatch = useDispatch()
     useEffect(() => {
       dispatch(getPosts())
