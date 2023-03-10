@@ -1,18 +1,18 @@
 import axios from "axios";
-const url ='http://localhost:5000'
-export const fetchPosts=()=> axios.get(url)
+const API= axios.create({baseURL:'http://localhost:5000'})
+export const fetchPosts=()=> API.get('/')
 
-export const creatPost=(newpost)=> axios.post(url,newpost)
+export const creatPost=(newpost)=> API.post('/',newpost)
 
-export const updatePost=(_id,newpost)=> axios.patch(`${url}/${_id}`,newpost)
+export const updatePost=(_id,newpost)=> API.patch(`/${_id}`,newpost)
 
-export const RemovePost=(_id)=> axios.delete(`${url}/${_id}`)
+export const RemovePost=(_id)=> API.delete(`/${_id}`)
 
-export const LikePost=(_id,newpost)=> axios.patch(`${url}/${_id}`,newpost)
+export const LikePost=(_id,newpost)=> API.patch(`/${_id}`,newpost)
 
-export const Signin=(userData)=> axios.post(`${url}/users/Signin`,userData)
-export const Signup=(userData)=> axios.post(`${url}/users/Signup`,userData)
-export const Profile=(Token)=> axios.post(`${url}/users/Profile`,Token)
+export const Signin=(userData)=> API.post(`/users/Signin`,userData)
+export const Signup=(userData)=> API.post(`/users/Signup`,userData)
+export const Profile=(Token)=> API.post(`/users/Profile`,Token)
 
 
 

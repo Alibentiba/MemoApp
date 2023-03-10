@@ -15,6 +15,7 @@ export const creatPost=(post)=>async(dispatch)=>{
     } catch (error) {
         console.log(error.message)  
     }}
+    
     export const deletePost=(id)=>async(dispatch)=>{
         try {
             const {data}=await api.RemovePost(id)
@@ -36,7 +37,13 @@ export const creatPost=(post)=>async(dispatch)=>{
 
             export const setUpdatePost=(post)=>async(dispatch)=>{
                 try {
-                    dispatch({type:'SETUPDATE_POST',payload:post})
+                    if (!post) {
+                        dispatch({type:'SETUPDATE_POST',payload:null})
+
+                    } else {
+                        dispatch({type:'SETUPDATE_POST',payload:post})
+
+                    }
                   
                 } catch (error) {
                     console.log(error.message)  

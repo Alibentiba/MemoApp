@@ -4,33 +4,48 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { RgisterUser } from '../actions/Users';
 
 const Singup = () => {
-    const [email, setemail] = useState('');
-const [password, setpassword] = useState('');
+  const [name, setName] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [ConfirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [conditionsGeneral, setconditionsGeneral] = useState(false);
+  const [registerUser, setregisterUser] = useState(null);
+  const dispatch =useDispatch()
 
-const [showPassword, setShowPassword] = useState(false);
+
 const handleClickShowPassword = () => setShowPassword((show) => !show);
 const handleMouseDownPassword = (event) => {
     event.preventDefault();
   }
+  
+
+const handelRegister=(e)=>{
+  e.preventDefault()
+  setregisterUser({name,email,password})
+  dispatch(RgisterUser({name,email,password}))
+  console.log('object From SingUp',{name,email,password})
+}
+
+
 
     return (
         <div className='flex flex-col items-center mt-10 justify-start w-screen h-screen ' >
           <p className='font-bold text-3xl mb-16'>Singup</p>
           
-          <form  className='flex flex-col w-1/3 h-3/4 items-center justify-center border py-6  shadow-xl '>
+          <form  className='flex flex-col w-1/3 h-3/4 items-center justify-center border py-6  shadow-xl ' onSubmit={handelRegister}>
           <TextField
               label="UserName"
-              id="outlined-size-small"
               size="laSmallrge"
-              value={email}
-              onChange={(e) => setemail(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               sx={{ m: 1, width: '40ch','& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root':{ height:'55px'}}}
             />
           <TextField
               label="Email"
-              id="outlined-size-small"
               size="laSmallrge"
               value={email}
               onChange={(e) => setemail(e.target.value)}
@@ -67,16 +82,19 @@ const handleMouseDownPassword = (event) => {
                 type="password"
                 autoComplete="current-password"
                 sx={{ m: 1, width: '40ch'}}
+                value={ConfirmPassword}
+                onChange={(e)=>setConfirmPassword(e.target.value)}
                 />
 
         <div className='flex items-center justify-center '>
-        <Checkbox
-                 unchecked
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 26} }}/>
+        <Checkbox onClick={()=>setconditionsGeneral(!conditionsGeneral)}
+               
+                 checked={conditionsGeneral}
+                 sx={{ '& .MuiSvgIcon-root': { fontSize: 26} }}/>
                 <p>j'accepte les conditions générales</p>
         </div>
 
-               <button  className='text-white px-8 py-2 rounded-sm w-1/2 font-semibold bg-rose-500'>Register</button>
+               <button onClick={handelRegister} className='text-white px-8 py-2 rounded-sm w-1/2 font-semibold bg-rose-500' disabled={!conditionsGeneral}>Register</button>
                 <p className='text-sm mt-3 text-gray-600'>
                 already have an account 
                  <Link to='/Login' className='font-semibold ml-2 text-blue-800'>

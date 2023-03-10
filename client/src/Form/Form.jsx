@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux';
-import { creatPost ,UpdatePost} from '../actions/posts';
+import { creatPost ,UpdatePost,setUpdatePost} from '../actions/posts';
 
 const Form = () => {
     const [postData, setpostData] = useState({creator:'',title:'',message:'',tags:'',selectedFile:null});
@@ -11,21 +11,17 @@ const Form = () => {
 
 useEffect(() => {
     if(postsup){
-        setpostData(postsup)
-    }
-}, [postsup]);
+        setpostData(postsup)}
+},[postsup]);
 
 const handlSubmit=()=>{
-
   if (postsup) {
     dispatch(UpdatePost(postsup._id,postData))
   } else {
     dispatch(creatPost(postData))
-
   }  
-Clear()
+  Clear()}
 
-}
 const Clear=()=>{
     setpostData({
     creator:'',
@@ -33,14 +29,15 @@ const Clear=()=>{
     message:'',
     tags:'',
     selectedFile:null})
+    dispatch(setUpdatePost(null))
 }
 
 
 
 
   return (
-    <div className='w-1/4 h-3/4 rounded-lg p-3  border border-gray-500 '>
-        <h3 className='w-full text-center font-bold text-xl py-5'>Creat Post</h3>
+    <div className='w-1/4 h-3/4 rounded-lg p-3  border border-gray-300 '>
+        <h3 className='w-full text-center font-bold text-xl py-5'>{!postData._id? 'Creat Post':'Updat That Post'}</h3>
         <form onSubmit={handlSubmit} className=' w-full h-full items-center justify-start flex flex-col gap-3'>
             <TextField
                     label="Creator"
@@ -85,7 +82,7 @@ const Clear=()=>{
                     </div>
                     
                 <Button onClick={handlSubmit} variant="contained" size="large" fullWidth>
-                            {!postsup? 'Submit' :'Update'}
+                            {!postData._id?  'Submit' :'Update'}
                 </Button> 
 
                 <Button onClick={Clear}  variant="outlined" color="error" size="large" fullWidth>

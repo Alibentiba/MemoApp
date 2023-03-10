@@ -13,10 +13,6 @@ export default (posts=null,action)=>{
                 case 'UPDATE_POST':
                     return posts.map((post) => post._id===action.payload._id ? action.payload :post );
 
-
-                       
-
-    
               default:
                 return posts;
         

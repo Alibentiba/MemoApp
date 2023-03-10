@@ -8,25 +8,24 @@ import { useDispatch } from 'react-redux';
 import {deletePost,setUpdatePost} from '../actions/posts'
 
 const Post = ({_id,creator,title,message,tags,selectedFile,likCount,createdAt}) => {
+
     const dispatch =useDispatch()
-   
     const post ={_id,creator,title,message,tags,selectedFile,likCount,createdAt}
 
-
-
   return (
-    <div className='w-64 bg-white h-96 m-2 rounded-lg flex flex-col justify-between  ' >
-        <div className='flex items-start justify-between px-1'>
+    <div className='w-64 bg-white h-96 m-2 rounded-lg flex flex-col justify-between border border-gray-300 ' >
+        <div    style={{backgroundImage: `url(${selectedFile})`}}
+        className={`flex items-start justify-between px-1 h-64 bg-cover bg-center text-white`}>
             <span><p className='font-semibold text-xl'>{creator}</p>
-               <p className=' text-md text-gray-600'>{moment(createdAt).fromNow()}</p></span>
-            <IconButton color="black" onClick={()=>{dispatch(setUpdatePost(post))}} >
-               <MoreVertIcon />
-            </IconButton>
+                <p className=' text-md '>{moment(createdAt).fromNow()}</p></span>
+                <IconButton  onClick={()=>{dispatch(setUpdatePost(post))}} >
+                <MoreVertIcon />
+                </IconButton>
         </div>
     
-        <img className='w-full mx-0 h-48 '
+        {/* <img className='w-full mx-0 h-48 '
             src={selectedFile}
-            alt="image place" />
+            alt="image place" /> */}
 
         <div className='flex flex-col px-1'>
             <p className='text-gray-500 text-lg'>{tags}</p>

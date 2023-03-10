@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <div className='w-full  h-full flex flex-row p-4 gap-3'>
-      <div className='w-3/4 bg-green-400 grid grid-cols-4'>
+      <div className='w-3/4  grid grid-cols-4'>
         {
           posts?.map(({_id,creator,title,message,tags,selectedFile,likCount,createdAt})=>{
             return <div key={_id}>
