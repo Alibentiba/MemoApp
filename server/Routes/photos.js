@@ -6,4 +6,3 @@ router.post('/Signup',Signup)
 router.post('/Profile',Profile)
 
 export default router
- 
