@@ -7,13 +7,14 @@ import Navbar from './Navbar/Navbar';
 import SingUp from './SingUp/SingUp';
 import { useDispatch } from 'react-redux';
 import { getPosts } from './actions/posts';
+import PostDetails from './PostDetails/PostDetails';
 
 
 const App = () => {
-  const [currentID, setcurrentID] = useState(null);
     const dispatch = useDispatch()
     useEffect(() => {
       dispatch(getPosts())
+    
     },[dispatch]);
 
     return (
@@ -24,6 +25,7 @@ const App = () => {
               <Route  path='/'  element={<Home/>}/>
               <Route path='/Login' element={<Login/>}/>
               <Route path='/SingUp' element={<SingUp/>}/>
+              <Route path='/post/:id' element={<PostDetails/>}/>
 
           </Routes> 
       </div>

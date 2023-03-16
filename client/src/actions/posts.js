@@ -9,6 +9,7 @@ try {
 }}
 
 export const creatPost=(post)=>async(dispatch)=>{
+    console.log('post action',post)
     try {
         const {data}=await api.creatPost(post)
         dispatch({type:'CREAT_POST',payload:data})
@@ -19,7 +20,7 @@ export const creatPost=(post)=>async(dispatch)=>{
     export const deletePost=(id)=>async(dispatch)=>{
         try {
             const {data}=await api.RemovePost(id)
-            dispatch({type:'DELETE_POST',payload:id})
+            dispatch({type:'DELETE_POST',payload:data})
         } catch (error) {
             console.log(error.message)  
         }}
@@ -37,14 +38,19 @@ export const creatPost=(post)=>async(dispatch)=>{
 
             export const setUpdatePost=(post)=>async(dispatch)=>{
                 try {
-                    if (!post) {
-                        dispatch({type:'SETUPDATE_POST',payload:null})
-
-                    } else {
+                   
                         dispatch({type:'SETUPDATE_POST',payload:post})
 
-                    }
+                  
                   
                 } catch (error) {
                     console.log(error.message)  
                 }}
+
+                export const setPostDetails=(post)=>async(dispatch)=>{
+                    try {
+                            dispatch({type:'SETDETAILS_POST',payload:post})
+                    } catch (error) {
+                        console.log(error.message)  
+                    }}
+             

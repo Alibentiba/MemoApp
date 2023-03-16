@@ -1,13 +1,13 @@
-export default  (p=null,action)=>{
+export default (state={postToupdate:null},action)=>{
    
     switch (action.type) {
        
          case 'SETUPDATE_POST' :
-              return p= action.payload
+              return {...state,postToupdate:action?.payload}
               default:
-                return p=null;
+                return state;
         
     }
-    return p;
+ 
 
 }

@@ -4,6 +4,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { singIn } from '../actions/Users';
 
 const Login = () => {
 const [email, setemail] = useState('');
@@ -17,17 +18,16 @@ const handleMouseDownPassword = (event) => {
   }
 
  
-
-
-
-
-
+const handelLogin=(e)=>{
+e.preventDefault()
+dispatch(singIn({email,password}))
+}
 
 
   return (
     <div className='flex flex-col items-center mt-10 justify-start w-screen h-screen'>
       <p className='font-bold text-3xl mb-16'>Login</p>
-      <form className='flex flex-col w-1/3 h-1/2 items-center justify-center border  shadow-xl '>
+      <form onSubmit={handelLogin} className='flex flex-col w-1/3 h-1/2 items-center justify-center border  shadow-xl '>
       <TextField
           label="Email"
           id="outlined-size-small"
@@ -62,7 +62,7 @@ const handleMouseDownPassword = (event) => {
             }
             label="Password"/>
         </FormControl>
-           <button  className='text-white px-8 py-2 rounded-sm w-1/2 font-semibold bg-rose-500'>
+           <button onClick={handelLogin}  className='text-white px-8 py-2 rounded-sm w-1/2 font-semibold bg-rose-500'>
                Login
             </button>
             <p className='text-sm mt-3 text-gray-600'>Don't have an account 
